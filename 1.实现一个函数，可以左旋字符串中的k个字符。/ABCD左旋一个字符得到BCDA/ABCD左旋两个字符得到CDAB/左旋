@@ -1,0 +1,24 @@
+//1.实现一个函数，可以左旋字符串中的k个字符。
+//ABCD左旋一个字符得到BCDA
+//ABCD左旋两个字符得到CDAB
+//
+
+#include <stdio.h>
+#include <string.h>
+char * leftRunN (char *str, int k, int len)
+{
+	char *start = str;
+
+	while (k)
+	{
+		char head_1 = *str;
+		int i = 0;
+		for (i = 0; i < len-1; i++)
+		{
+			str[i] = str[i+1];
+		}
+		str[len - 1] = head_1;
+		k--;
+	}
+	return start;
+}
