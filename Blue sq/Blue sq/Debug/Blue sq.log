@@ -1,3 +1,2 @@
-﻿  test6.c
-D:\编程练习\VS2019_C\Blue sq\Blue sq\test6.c(64,10): warning C4098: “Func6”:“void”函数返回值
-  Blue sq.vcxproj -> D:\编程练习\VS2019_C\Blue sq\Debug\Blue sq.exe
+﻿  test7.c
+  Blue sq.vcxproj -> D:\Git\Learning-notes\Blue sq\Debug\Blue sq.exe

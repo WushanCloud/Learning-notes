@@ -2,6 +2,6 @@
 
 int main()
 {
-	Func6();
+	Func7();
 	return 0;
 }

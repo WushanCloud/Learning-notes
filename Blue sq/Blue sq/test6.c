@@ -61,6 +61,6 @@ void Func6()
 	int  a[N] = { 4,2,2,1,1,3 };
 	char b[BUF];
 	f(a, 0, M, b);
-	return 0;
+
 }
 

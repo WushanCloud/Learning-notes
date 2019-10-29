@@ -7,3 +7,4 @@
 void Func3();
 void Func4();
 void Func5();
+void Func7();
