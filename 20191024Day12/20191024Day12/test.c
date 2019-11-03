@@ -1,20 +1,20 @@
-//.��д������
+//.编写函数：
 //unsigned int reverse_bit(unsigned int value);
-//��������ķ���ֵ��value�Ķ�����λģʽ�����ҷ�ת���ֵ��
+//这个函数的返回值是value的二进制位模式从左到右翻转后的值。
 //
-//�磺
-//��32λ������25���ֵ�������и�λ��
+//如：
+//在32位机器上25这个值包含下列各位：
 //00000000000000000000000000011001
-//��ת�󣺣�2550136832��
+//翻转后：（2550136832）
 //10011000000000000000000000000000
-//���������أ�
+//程序结果返回：
 //2550136832
 //
 
 
 
 
-//2.��ʹ�ã�a + b�� / 2���ַ�ʽ������������ƽ��ֵ��
+//2.不使用（a + b） / 2这种方式，求两个数的平均值。
 //
 //
 //#include<stdio.h>
@@ -45,9 +45,9 @@
 //	printf("%d, %d",c,Func(a,b));
 //	return 0;
 //}
-//3.���ʵ�֣�
-//һ��������ֻ��һ�����ֳ�����һ�Ρ������������ֶ��ǳɶԳ��ֵġ�
-//���ҳ�������֡���ʹ��λ���㣩
+//3.编程实现：
+//一组数据中只有一个数字出现了一次。其他所有数字都是成对出现的。
+//请找出这个数字。（使用位运算）
 //
 //
 //#include<stdio.h>
@@ -70,11 +70,11 @@
 //}
 
 //4.
-//��һ���ַ����������Ϊ:"student a am i",
-//���㽫��������ݸ�Ϊ"i am a student".
-//Ҫ��
-//����ʹ�ÿ⺯����
-//ֻ�ܿ������޸��ռ䣨�ռ�������ַ����ĳ����޹أ���
+//有一个字符数组的内容为:"student a am i",
+//请你将数组的内容改为"i am a student".
+//要求：
+//不能使用库函数。
+//只能开辟有限个空间（空间个数和字符串的长度无关）。
 //
 //student a am i
 //i ma a tneduts
@@ -82,47 +82,52 @@
 
 #include<stdio.h>
 #include<string.h>
-
-void my_remove(char* str, int len)
+void Fun2(char* str, int len)
 {
 	char* head = str;
 	char* end = str + len-1;
-	char temp;
-
-	while (end>head)
+	while (head < end)
 	{
-		temp = *head;
+		int temp = *head;
 		*head = *end;
 		*end = temp;
 		head++;
 		end--;
 	}
 }
-
-char* Func(char* str, int len)
+void Fun1(char* str, int len)
 {
-	char* arr = str;
-	char* head = str;
-	char* end = str;
-	my_remove(str, len);
-	for(;*end != '\0';end++)
+	Fun2(str, len);
+	int i = 0;
+	len++;
+	while (len--)
 	{
-		if (*end == ' ')
+		if (*str == ' ' || *str == '\0')
 		{
-			
-			my_remove(head,end-head);
-			head = end+1;
+			Fun2(str - i, i);
+			i = 0;
+			str++;
 		}
-		
+		else {
+			str++;
+			i++;
+		}
 	}
-	return arr;
 }
-
 int main()
 {
-	char arr[] = "student a am i";
-	int len = strlen(arr);
-
-	printf("%s", Func(arr,len));
+	char str[100];
+	char c;
+	int i = 0;
+	int len;
+	while ((c = getchar()) != '\n')
+	{
+		str[i] = c;
+		i++;
+	}
+	str[i] = '\0';
+	len = strlen(str);
+	Fun1(str, len);
+	printf("%s", str);
 	return 0;
 }
