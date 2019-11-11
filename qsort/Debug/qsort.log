@@ -1,0 +1,4 @@
+﻿  main.c
+D:\Git\Learning-notes\qsort\main.c(52,19): warning C4047: “函数”:“char (*)[5]”与“char [5]”的间接级别不同
+D:\Git\Learning-notes\qsort\main.c(52,19): warning C4024: “sortprint2”: 形参和实参 1 的类型不同
+  qsort.vcxproj -> D:\Git\Learning-notes\qsort\Debug\qsort.exe
