@@ -1,3 +1,6 @@
 ﻿  test.c
-D:\Git\Learning-notes\lanqiao3\test.c(29,1): warning C4047: “初始化”:“char”与“char [5]”的间接级别不同
+D:\Git\Learning-notes\lanqiao3\test.c(434,12): warning C4473: “scanf_s”: 没有为格式字符串传递足够的参数
+D:\Git\Learning-notes\lanqiao3\test.c(434,12): message : 占位符和其参数预计 2 可变参数，但提供的却是 1 参数
+D:\Git\Learning-notes\lanqiao3\test.c(434,12): message : 缺失的可变参数 2 为格式字符串“%c”所需
+D:\Git\Learning-notes\lanqiao3\test.c(434,12): message : 此参数用作缓冲区大小
   lanqiao3.vcxproj -> D:\Git\Learning-notes\lanqiao3\Debug\lanqiao3.exe
