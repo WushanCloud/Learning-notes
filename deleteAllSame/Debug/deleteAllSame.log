@@ -1,0 +1,3 @@
+﻿  main.c
+D:\Git\Learning-notes\deleteAllSame\main.c(17,16): warning C4553: “==”: 未使用表达式结果；是否打算使用“=”?
+  deleteAllSame.vcxproj -> D:\Git\Learning-notes\qsort3\Debug\deleteAllSame.exe
