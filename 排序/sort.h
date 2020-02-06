@@ -1,0 +1,14 @@
+#pragma once
+#include <iostream>
+using namespace std;
+
+//√∞≈›≈≈–Ú
+void bubbleSort(int *arr,int n);
+//—°‘Ò≈≈–Ú
+void selectionSort(int* arr, int n);
+//≤Â»Î≈≈–Ú
+void insertSort(int* arr, int n);
+//œ£∂˚≈≈–Ú
+void shellSort(int* arr, int n);
+// ‰≥ˆ
+void print(int* arr, int n);
