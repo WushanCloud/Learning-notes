@@ -2,7 +2,7 @@
 
 int main()
 {
-    int arr[] = { 9,7,5,3,1,8,6,4,2,0 };
+    int arr[] = { 5,2,3,1 };
     int n = sizeof(arr) / sizeof(arr[0]);
     //冒泡
     //bubbleSort(arr, n);
@@ -11,7 +11,12 @@ int main()
     //插入
     //insertSort(arr, n);
     //希尔
-    shellSort(arr, n);
+    //shellSort(arr, n);
+    //快速
+    //quickSort(arr, n);
+    //归并
+    //merge( arr,0,1,3);
+    mergeSort(arr, n);
     print(arr, n);
     return 0;
 }

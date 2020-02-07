@@ -112,6 +112,114 @@ void shellSort(int* arr, int n)
 		//print(arr, n);
 	}
 }
+void quickSort_digui(int *arr,int start,int end)
+{
+	//判断当前区域是否需要排序
+
+	if (start >= end) return;
+	//如果当前两值相差为1，且顺序则退出
+	if (start + 1 == end)
+	{
+		if (arr[start] > arr[end])
+		{
+			swap(arr[start], arr[end]);
+		}
+		return;
+	}
+	//进行分割排序
+	else
+	{
+		//设置基准值下标为最后一位
+		int mid = end;
+		//起始位
+		int left = start;
+		//最后位
+		int right = end - 1;
+		//把大于基准值的放在左侧，小于的放在右侧
+		while (left < right)
+		{
+			while (arr[left] < arr[mid] && left < right)
+			{
+				left++;
+			}
+			while (arr[right] >= arr[mid] && right > left)
+			{
+				right--;
+			}
+			swap(arr[left], arr[right]);
+		}
+		if (arr[right] > arr[mid])
+		{
+			swap(arr[right], arr[mid]);
+		}
+		quickSort_digui(arr, start, right);
+		quickSort_digui(arr, right+1, end);
+	}
+}//快速排序
+void quickSort(int* arr, int n)
+{
+	quickSort_digui(arr, 0, n - 1);
+}
+//归并
+void merge(int* arr, int left, int mid, int right)
+{
+	int leftSize = mid-left+1;
+	int rightSize = right - mid;
+	int* leftarr = (int*)malloc(sizeof(int) * leftSize);
+	int* rightarr = (int*)malloc(sizeof(int) * rightSize);
+	for (int i = 0; i < leftSize; i++)
+	{
+		leftarr[i] = arr[i];
+	}
+	for (int i = 0; i < leftSize; i++)
+	{
+		rightarr[i] = arr[i + mid+1];
+	}
+	int i = 0, j = 0, k = 0;
+	while (i < leftSize && j < rightSize)
+	{
+		if (leftarr[i] < rightarr[j])
+		{
+			arr[k] = leftarr[i];
+			i++;
+			k++;
+		}
+		else
+		{
+			arr[k] = rightarr[j];
+			j++;
+			k++;
+		}
+	}
+	while (i < leftSize)
+	{
+		arr[k] = leftarr[i];
+		i++;
+		k++;
+	}
+	while (j < rightSize)
+	{
+		arr[k] = rightarr[j];
+		j++;
+		k++;
+	}
+}
+void mergeSort_digui(int *arr,int left,int right)
+{
+	//结束条件
+	if (left == right)	return;
+	//分治法，mid在属于前半部分
+	int mid = (left + right) / 2;
+	mergeSort_digui(arr, left, mid);
+	mergeSort_digui(arr, mid+1, right);
+	//归并
+	merge(arr, left, mid, right);
+}
+//归并排序
+void mergeSort(int* arr, int n)
+{
+	mergeSort_digui(arr, 0, n - 1);
+}
 void print(int* arr, int n)
 {
 	for (int i = 0; i < n; i++)
