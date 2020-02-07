@@ -160,22 +160,30 @@ void quickSort(int* arr, int n)
 {
 	quickSort_digui(arr, 0, n - 1);
 }
-//归并
+//归并----有序合并左右数组
 void merge(int* arr, int left, int mid, int right)
 {
+	//左侧数组长度
 	int leftSize = mid-left+1;
+	//右侧数组长度
 	int rightSize = right - mid;
+	//左侧数组
 	int* leftarr = (int*)malloc(sizeof(int) * leftSize);
+	//右侧数组
 	int* rightarr = (int*)malloc(sizeof(int) * rightSize);
-	for (int i = 0; i < leftSize; i++)
+	//给左侧数组赋值
+	for (int i = 0,j = left; i < leftSize; i++,j++)
 	{
-		leftarr[i] = arr[i];
+		leftarr[i] = arr[j];
 	}
-	for (int i = 0; i < leftSize; i++)
+	//给右侧数组赋值
+	for (int i = 0,j = mid+1; i < leftSize; i++,j++)
 	{
-		rightarr[i] = arr[i + mid+1];
+		rightarr[i] = arr[j];
 	}
-	int i = 0, j = 0, k = 0;
+	//有序合并两数组
+	//i：左侧数组下标，j：右侧数组下标，k：原数组下标
+	int i = 0, j = 0, k = left;
 	while (i < leftSize && j < rightSize)
 	{
 		if (leftarr[i] < rightarr[j])
@@ -203,6 +211,9 @@ void merge(int* arr, int left, int mid, int right)
 		j++;
 		k++;
 	}
+	//释放
+	free(leftarr);
+	free(rightarr);
 }
 void mergeSort_digui(int *arr,int left,int right)
 {
