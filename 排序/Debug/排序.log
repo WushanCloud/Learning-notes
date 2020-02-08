@@ -1,2 +1,4 @@
-﻿  sort.cpp
-  排序.vcxproj -> D:\Git\Learning-notes\排序\Debug\排序.exe
+﻿  main.cpp
+  sort.cpp
+  正在生成代码...
+D:\Git\Learning-notes\排序\main.cpp : fatal error C1090: PDB API 调用失败，错误代码“3”: D:\Git\Learning-notes\排序\Debug\vc142.pdb

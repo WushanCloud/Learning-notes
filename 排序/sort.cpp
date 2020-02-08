@@ -160,24 +160,26 @@ void quickSort(int* arr, int n)
 {
 	quickSort_digui(arr, 0, n - 1);
 }
+//int sum_count = 0;
 //归并----有序合并左右数组
 void merge(int* arr, int left, int mid, int right)
 {
+	//printf("%d %d\n", sum_count++, __LINE__);
 	//左侧数组长度
 	int leftSize = mid-left+1;
 	//右侧数组长度
 	int rightSize = right - mid;
 	//左侧数组
-	int* leftarr = (int*)malloc(sizeof(int) * leftSize);
+	int* leftarr = (int*)malloc(sizeof(int) * (leftSize));
 	//右侧数组
-	int* rightarr = (int*)malloc(sizeof(int) * rightSize);
+	int* rightarr = (int*)malloc(sizeof(int) * (rightSize));
 	//给左侧数组赋值
-	for (int i = 0,j = left; i < leftSize; i++,j++)
+	for (int i = 0, j = left; i < leftSize && j <= right; i++, j++)
 	{
 		leftarr[i] = arr[j];
 	}
 	//给右侧数组赋值
-	for (int i = 0,j = mid+1; i < leftSize; i++,j++)
+	for (int i = 0, j = mid + 1; i < leftSize && j <= right; i++, j++)
 	{
 		rightarr[i] = arr[j];
 	}
@@ -215,22 +217,74 @@ void merge(int* arr, int left, int mid, int right)
 	free(leftarr);
 	free(rightarr);
 }
-void mergeSort_digui(int *arr,int left,int right)
+void mergeSort_digui(int* arr, int left, int right)
 {
+	//printf("%d %d\n", sum_count++, __LINE__);
 	//结束条件
 	if (left == right)	return;
 	//分治法，mid在属于前半部分
 	int mid = (left + right) / 2;
 	mergeSort_digui(arr, left, mid);
-	mergeSort_digui(arr, mid+1, right);
+	mergeSort_digui(arr, mid + 1, right);
 	//归并
 	merge(arr, left, mid, right);
 }
 //归并排序
 void mergeSort(int* arr, int n)
 {
+	//printf("%d %d\n", sum_count++, __LINE__);
 	mergeSort_digui(arr, 0, n - 1);
 }
+//建堆的一次调整:对有n个数的树（数组）为以i位为父结点的树做一次调整
+void heapify(int *tree,int n,int i)
+{
+	if (i >= n)
+	{
+		return;
+	}
+	//两个孩子结点下标
+	int child1 = i * 2 + 1;
+	int child2 = i * 2 + 2;
+	//设最大值下标为父亲结点下标
+	int max = i;
+	//找出最大值下标
+	if (child1 < n && tree[child1] > tree[max])
+	{
+		max = child1;
+	}
+	if (child2 < n && tree[child2] > tree[max])
+	{
+		max = child2;
+	}
+	//把父结点替换为最大值
+	if (max != i)
+	{
+		swap(tree[i], tree[max]);
+		//递归max的树
+		heapify(tree, n, max);
+	}
+}
+//建堆
+void buildHeap(int* arr, int n)
+{
+	int last_parent = ((n - 1) - 1) / 2;
+	for (int i = last_parent; i >= 0; i--)
+	{
+		heapify(arr, n, i);
+	}
+}
+//堆排序
+void heapSort(int* arr, int n)
+{
+	buildHeap(arr, n);
+	for (int i = n - 1; i > 0; i--)
+	{
+		swap(arr[i], arr[0]);
+		heapify(arr, i, 0);
+		
+	}
+}
+
 void print(int* arr, int n)
 {
 	for (int i = 0; i < n; i++)
@@ -238,3 +292,70 @@ void print(int* arr, int n)
 		cout << arr[i] << " ";
 	}cout << endl;
 }
+#if 1
+
+void  Merge_Sort(int* arr, int left, int mid, int right, int* arr1)
+{
+
+	int i = left, j = mid + 1; int k = left;
+	//开辟新数组，将左右两个数组的值进行比较，小的放前面
+	while (j <= right && i <= mid)
+	{
+		if (arr[i] < arr[j])
+		{
+			arr1[k] = arr[i];
+			++i;
+
+		}
+		else
+		{
+			arr1[k] = arr[j];
+			++j;
+		}
+		++k;
+	}
+	if (j > right)
+	{
+		//说明前面数组有剩余，则将i当前位置到mid的数据加到后面
+
+		while (i <= mid)
+		{
+			arr1[k] = arr[i];
+			++i; ++k;
+		}
+	}
+	else
+	{  //说明后面数组有剩余，则将j当前位置到right的数据加到后面
+		while (j <= right)
+		{
+			arr1[k] = arr[j];
+			++j;
+			++k;
+		}
+	}
+	i = left;
+	for (; i <= right; i++)
+	{
+		arr[i] = arr1[i];
+	}
+
+}
+//归并排序
+void MergeSort(int* arr, int left, int right, int* arr1)
+{
+	//将数组分成两半，left-mid  mid+1-right
+	//先将左边的排好序 再将右边的排好序  ，再整体排序
+	if (left < right)
+	{
+		//数组的分割
+		int mid = (left + right) / 2;
+		MergeSort(arr, left, mid, arr1);
+		MergeSort(arr, mid + 1, right, arr1);
+		//将分割好的两个有序数组进行合并
+		Merge_Sort(arr, left, mid, right, arr1);
+	}
+
+
+}
+
+#endif
