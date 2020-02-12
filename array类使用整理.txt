@@ -1,0 +1,112 @@
+#include <array>
+#include <iostream>
+
+using namespace std;
+
+template <typename T>
+void print(array<T, 5> arr)
+{
+	for (size_t i = 0; i < arr.size(); i++)
+	{
+		cout << arr[i] << " ";
+	}cout << endl;
+}
+
+
+
+int main()
+{
+	//创建数组array<类型，大小> 名字 ；
+	array<int,5> intarr;
+	//初始化
+	intarr = { 1,2,3 };
+	print(intarr);
+
+	intarr = { 1,2,3,4,5 };
+	print(intarr);
+
+	intarr[2] = 9;
+	print(intarr);
+
+	array<double, 5> douarr = { 0.0,1.2,2.3 };
+	print(douarr);
+	cout << endl;
+
+
+	//.data()	应该是一个首元素地址，
+	cout << &intarr[0] << endl;
+	cout << intarr.data() << endl;
+	cout << *intarr.data() << endl;
+	cout << endl;
+	//所以字符型数组
+	array<char, 12> chararr{ "Love you" };//12个字符单位
+	cout << chararr.data() << endl;
+	cout << chararr[0] << endl;
+
+	array<string, 7> stringarr{ "Love you","Lover" };
+	cout << chararr.data() << endl;
+	cout << stringarr[0] << endl;
+	cout << endl;
+	
+	//.size()	应该返回数组总空间大小
+	cout << intarr.size() << endl;
+	cout << douarr.size() << endl;
+	cout << chararr.size() << endl;
+	cout << stringarr.size() << endl;
+	cout << endl;
+
+	//.begin()	指向第一个元素		Iterator迭代器
+	auto it = intarr.begin();
+	cout << *it<< endl;
+	cout << *intarr.begin() << endl;
+	//.end()		指向最后一个元素的后一个理论元素
+	cout << *(intarr.end()-1) << endl;
+	for ( it = intarr.begin(); it < intarr.end(); ++it)
+		cout << ' ' << *it;
+	cout << endl;
+	//.rbegin()		指向最后一个元素		反向迭代器
+	//.rend()		指向第一个元素的前一个理论元素
+	for (auto rit = intarr.rbegin(); rit < intarr.rend(); ++rit)
+		cout << ' ' << *rit;
+	cout << endl;
+	cout << endl;
+
+	//还有cbegin()/cend();c的意思是const，意思是不可更改的，使用起来安全
+
+	//.at(n)		返回对数组中位置n处元素的引用。
+	intarr.at(1) = 2;
+	//使用方法，效果和intarr[1]一样
+	//区别：at(n) 该函数自动检查n是否在容器中的有效元素范围内，如果不是，则抛出out_of_range异常
+	//			（即，如果n大于或等于其大小）。这与成员operator []不同，后者不检查边界。
+	//intarr[6];	
+	//intarr.at(6);		其实这两种在vs感觉一样的，出错也是一样的，就是错误提示不同
+
+	//.front()访问第一个元素，返回对数组容器中第一个元素的引用
+	cout << "第一个" << intarr.front() << endl;
+	//.back()访问最后一个元素，返回对数组容器中最后一个元素的引用
+	cout << "最后一个：" << intarr.back() << endl;
+	cout << endl;
+
+	//测试数组是否为空，返回一个布尔值，该值指示数组容器是否为空，即其大小是否为0。
+	cout << "该数组是否为空：" << intarr.empty() << endl;
+	cout << endl;
+	
+	//输出
+	for (int& x : intarr) { std::cout << ' ' << x; }
+	cout << endl;
+	//.fill(2)		执行与数组对象大小一样多的赋值操作。
+	intarr.fill(2);
+	for (int& x : intarr) { std::cout << ' ' << x; }
+	cout << endl;
+	cout << endl;
+
+	//.max_size()返回最大尺寸，返回数组容器可以容纳的最大元素数。
+	//数组对象的max_size与其大小一样，始终等于用于实例化数组模板类的第二个模板参数。
+	cout << intarr.max_size()<<endl;
+	cout << intarr.size()<<endl;
+	cout << endl;
+	//._Elems返回的也是一个指向第一个元素的地址
+	intarr = { 1,2,3,4,5 };
+	cout <<*intarr._Elems;
+
+}
