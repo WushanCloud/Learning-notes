@@ -6,10 +6,13 @@
 //冒泡排序
 void bubbleSort(int* arr, int n)
 {
+	//优化
+	int temp = 0;
 	//从小到大排，每次找出最大的
 	//外层循环是排序总趟数，每次排一个，总共排n-1次
 	for (int i = 0; i < n-1; i++)
 	{
+		temp = 0;
 		//内层循环写一趟比较次数
 		for (int j = 0; j < n-1-i; j++)
 		{
@@ -17,8 +20,11 @@ void bubbleSort(int* arr, int n)
 			if (arr[j] > arr[j+1])
 			{
 				swap(arr[j + 1], arr[j]);
+				temp = 1;
 			}
 		}
+		if (temp == 0) break;
+		print(arr, n);
 	}
 }
 //选择排序
@@ -72,6 +78,7 @@ void insertSort(int* arr, int n)
 				}
 			}
 		}
+		print(arr, n);
 	}
 }
 //希尔排序
@@ -160,11 +167,9 @@ void quickSort(int* arr, int n)
 {
 	quickSort_digui(arr, 0, n - 1);
 }
-//int sum_count = 0;
 //归并----有序合并左右数组
 void merge(int* arr, int left, int mid, int right)
 {
-	//printf("%d %d\n", sum_count++, __LINE__);
 	//左侧数组长度
 	int leftSize = mid-left+1;
 	//右侧数组长度
@@ -219,7 +224,6 @@ void merge(int* arr, int left, int mid, int right)
 }
 void mergeSort_digui(int* arr, int left, int right)
 {
-	//printf("%d %d\n", sum_count++, __LINE__);
 	//结束条件
 	if (left == right)	return;
 	//分治法，mid在属于前半部分
@@ -232,7 +236,6 @@ void mergeSort_digui(int* arr, int left, int right)
 //归并排序
 void mergeSort(int* arr, int n)
 {
-	//printf("%d %d\n", sum_count++, __LINE__);
 	mergeSort_digui(arr, 0, n - 1);
 }
 //建堆的一次调整:对有n个数的树（数组）为以i位为父结点的树做一次调整
