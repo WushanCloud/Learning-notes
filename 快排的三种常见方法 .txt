@@ -1,0 +1,168 @@
+
+
+#include <iostream>
+using namespace std;
+
+
+/*
+快速排序法一	hoare版本
+
+//思想：两个指针，一个key，排升序
+	假设key选择当前数组的最后一个元素，两个指针分别指向第一个和最后一个元素
+	从前找比key值大于等于的，从后找比key小的，做交换
+	当前指针与后指针重合或超越，交换大值和key
+	递归
+*/
+
+void hoareQsort(int *arr, int begin,int end)
+{
+	//设置递归结束的条件
+	if (begin >= end) return;
+
+	//设置左右指针
+	int left = begin;
+	int right = end;
+	//设置key
+	int key = end;
+
+	//开始交换
+	while (left < right)
+	{
+		while (left < right && arr[left] < arr[key])
+		{
+			left++;
+		}
+		while (left < right && arr[right] >= arr[key])
+		{
+			right--;
+		}
+		swap(arr[left], arr[right]);
+	}
+	//交换key值
+	swap(arr[right], arr[key]);
+
+
+	//进行左右递归
+	hoareQsort(arr, begin, right - 1);
+	hoareQsort(arr, right + 1, end);
+}
+
+
+/*
+快速排序法二	挖坑法
+
+//思想：两个指针，一个key，排升序
+	假设key选择当前数组的最后一个元素，两个指针分别指向第一个和最后一个元素
+	先存储key值
+	从前找比key值大于等于的，填到key的位置形成新坑
+	从后找比key小的，填到新坑
+	当前指针与后指针重合时，把key值填到坑上
+	递归
+*/
+
+
+void potholingQsort(int *arr,int begin,int end)
+{
+	//设置递归结束的条件
+	if (begin >= end) return;
+
+	//设置左右指针
+	int left = begin;
+	int right = end;
+	//设置key
+	int key = end;
+	//设置坑
+	int temp = arr[key];
+
+	//开始填坑
+	while (left < right)
+	{
+		while (left < right && arr[left] < temp)
+		{
+			left++;
+		}
+		if (left < right)
+		{
+			arr[key] = arr[left];
+			key = left;
+		}
+		while (left < right && arr[right] >= temp)
+		{
+			right--;
+		}
+		if (left < right)
+		{
+			arr[key] = arr[right];
+			key = right;
+		}
+	}
+	arr[key] = temp;
+
+	potholingQsort(arr, begin, key - 1);
+	potholingQsort(arr, key + 1, end);
+
+}
+
+
+/*
+快速排序法三	前后指针版本
+
+//思想：两个指针，一个key，排升序
+	假设key选择当前数组的最后一个元素，两个指针分别指向第一个和第一个元素之前的位置
+	第一个指针找小
+	第二个指针++后与第一个指针交换
+	当前指针与key重合时，交换key与第二个指针
+	递归
+*/
+
+void fbpQsort(int* arr, int begin, int end)
+{
+	//设置递归结束的条件
+	if (begin >= end) return;
+
+	//设置指针
+	int cur = begin;
+	int prev = begin - 1;
+
+	//设置key
+	int key = end;
+	
+	//开始交换
+	while (cur < key)
+	{
+		if (arr[cur] < arr[key])
+		{
+			prev++;
+			swap(arr[prev], arr[cur]);
+		}
+		cur++;
+	}
+	prev++;
+	swap(arr[prev], arr[key]);
+
+	fbpQsort(arr, begin, prev - 1);
+	fbpQsort(arr, prev+1,end);
+}
+
+
+void test()
+{
+	int arr[] = { 9,7,5,3,1,2,4,8,6,0 };
+	int len = sizeof(arr) / sizeof(arr[0]);
+
+	//hoareQsort(arr, 0, len - 1);
+	//potholingQsort(arr, 0, len - 1);
+	//fbpQsort(arr, 0, len - 1);	
+	
+	for (int x : arr)
+		cout << x << " ";
+	
+}
+
+
+int main()
+{
+	test();
+
+	return 0;
+}
