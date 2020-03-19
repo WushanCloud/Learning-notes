@@ -34,7 +34,7 @@ bool isOk(char** arr, int n, int i, int j)
 	//该位置为最后一例时
 	if (n == j)
 	{
-		if (i == 1)
+		if (i == 1 && arr[i][j] == '.')
 			return true;
 		else
 			return false;
